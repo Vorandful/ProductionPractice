@@ -35,20 +35,20 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="0">
                         <TextBlock Text="Nickname" HorizontalAlignment="Center" FontSize="18"/>
-                        <TextBox Name="TB_NickName" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
+                        <TextBox Name="TB_NickNameAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
                         <TextBlock Text="Password" HorizontalAlignment="Center"  FontSize="18"/>
-                        <PasswordBox Name="Pasword" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18"/>
+                        <PasswordBox Name="Pb_PaswordAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2">
                         <TextBlock Text="Email" HorizontalAlignment="Center"  FontSize="18"/>
-                        <TextBox Name="TB_Email" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
+                        <TextBox Name="TB_EmailAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
                     </StackPanel>
 
-                    <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Registration" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0"/>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Registration" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0" Click="Button_Click"/>
                 </Grid>
             </StackPanel>
         </Border>

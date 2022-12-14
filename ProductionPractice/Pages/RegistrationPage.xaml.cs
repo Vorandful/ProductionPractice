@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductionPractice.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,22 @@ namespace ProductionPractice.Pages
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e) // Кнопка "Зарегистрироваться"
+        {
+            if (TB_NickNameAdd.Text.Length <= 0 && Pb_PaswordAdd.Password.Length <= 0)
+            {
+                MessageBox.Show("Заполните поле");
+            }
+                else
+                {
+                    App.DB.User.Add(new User() { NickName = TB_NickNameAdd.Text.Trim(), Password = Pb_PaswordAdd.Password.Trim(), RoleId = 1, Fname = " ", SName = " " });
+                    App.DB.SaveChanges();
+                    MessageBox.Show("Регистрация прошла успешно");
+                    NavigationService.GoBack();
+                }
+            }
+
+        }
     }
-}
+

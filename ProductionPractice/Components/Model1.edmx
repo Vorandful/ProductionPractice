@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище EgorovProductionPracticeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BoughtCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Length" Type="time" Precision="7" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AuthorId" Type="int" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="Episodes" Type="int" />
+          <Property Name="Image" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SellHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NickName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" />
+          <Property Name="SName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Balance" Type="float" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BoughtCourses_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="BoughtCourse" Type="Self.BoughtCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoughtCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BoughtCourses_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="BoughtCourse" Type="Self.BoughtCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoughtCourse">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellHistory_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="SellHistory" Type="Self.SellHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SellHistory">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellHistory_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SellHistory" Type="Self.SellHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SellHistory">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище EgorovProductionPracticeModelContainer">
+          <EntitySet Name="BoughtCourse" EntityType="Self.BoughtCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellHistory" EntityType="Self.SellHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BoughtCourses_Course" Association="Self.FK_BoughtCourses_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BoughtCourses_User" Association="Self.FK_BoughtCourses_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Tag" Association="Self.FK_Course_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_User" Association="Self.FK_Course_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellHistory_Course" Association="Self.FK_SellHistory_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="SellHistory" EntitySet="SellHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellHistory_User" Association="Self.FK_SellHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SellHistory" EntitySet="SellHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EgorovProductionPracticeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProductionPracticeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BoughtCourse" EntityType="EgorovProductionPracticeModel.BoughtCourse" />
+          <EntitySet Name="Course" EntityType="EgorovProductionPracticeModel.Course" />
+          <EntitySet Name="Role" EntityType="EgorovProductionPracticeModel.Role" />
+          <EntitySet Name="SellHistory" EntityType="EgorovProductionPracticeModel.SellHistory" />
+          <EntitySet Name="sysdiagrams" EntityType="EgorovProductionPracticeModel.sysdiagrams" />
+          <EntitySet Name="Tag" EntityType="EgorovProductionPracticeModel.Tag" />
+          <EntitySet Name="User" EntityType="EgorovProductionPracticeModel.User" />
+          <AssociationSet Name="FK_BoughtCourses_Course" Association="EgorovProductionPracticeModel.FK_BoughtCourses_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BoughtCourses_User" Association="EgorovProductionPracticeModel.FK_BoughtCourses_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Tag" Association="EgorovProductionPracticeModel.FK_Course_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_User" Association="EgorovProductionPracticeModel.FK_Course_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellHistory_Course" Association="EgorovProductionPracticeModel.FK_SellHistory_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="SellHistory" EntitySet="SellHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="EgorovProductionPracticeModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellHistory_User" Association="EgorovProductionPracticeModel.FK_SellHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SellHistory" EntitySet="SellHistory" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BoughtCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="BoughtCourse" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_User" FromRole="BoughtCourse" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Length" Type="Time" Precision="7" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AuthorId" Type="Int32" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <Property Name="Episodes" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
+          <NavigationProperty Name="Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag" FromRole="Course" ToRole="Tag" />
+          <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_Course_User" FromRole="Course" ToRole="User" />
+          <NavigationProperty Name="SellHistory" Relationship="EgorovProductionPracticeModel.FK_SellHistory_Course" FromRole="Course" ToRole="SellHistory" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SellHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_SellHistory_Course" FromRole="SellHistory" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_SellHistory_User" FromRole="SellHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_Tag" FromRole="Tag" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Balance" Type="Double" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_User" FromRole="User" ToRole="BoughtCourse" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_User" FromRole="User" ToRole="Course" />
+          <NavigationProperty Name="Role" Relationship="EgorovProductionPracticeModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="SellHistory" Relationship="EgorovProductionPracticeModel.FK_SellHistory_User" FromRole="User" ToRole="SellHistory" />
+        </EntityType>
+        <Association Name="FK_BoughtCourses_Course">
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.BoughtCourse" Role="BoughtCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoughtCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BoughtCourses_User">
+          <End Type="EgorovProductionPracticeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.BoughtCourse" Role="BoughtCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BoughtCourse">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Tag">
+          <End Type="EgorovProductionPracticeModel.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_User">
+          <End Type="EgorovProductionPracticeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellHistory_Course">
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.SellHistory" Role="SellHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SellHistory">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Type="EgorovProductionPracticeModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellHistory_User">
+          <End Type="EgorovProductionPracticeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.SellHistory" Role="SellHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SellHistory">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EgorovProductionPracticeModelContainer" CdmEntityContainer="ProductionPracticeEntities">
+          <EntitySetMapping Name="BoughtCourse">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.BoughtCourse">
+              <MappingFragment StoreEntitySet="BoughtCourse">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Episodes" ColumnName="Episodes" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellHistory">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.SellHistory">
+              <MappingFragment StoreEntitySet="SellHistory">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SName" ColumnName="SName" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

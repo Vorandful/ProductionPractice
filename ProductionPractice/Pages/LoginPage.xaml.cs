@@ -24,10 +24,27 @@ namespace ProductionPractice.Pages
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void Button_Click(object sender, RoutedEventArgs e) // Регистрация
         {
             NavigationService.Navigate(new RegistrationPage());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) // Авторизация
+        {
+            var user = App.DB.User.FirstOrDefault(emp => emp.NickName == Tb_login.Text);
+            if (user == null)
+            {
+                MessageBox.Show("Логин неверный");
+                return;
+            }
+            if (user.Password != Pb_password.Password)
+            {
+                MessageBox.Show("Пароль неверный");
+                return;
+            }
+            App.LoggedUser = user;
+            NavigationService.Navigate(new MainPage());
         }
     }
 }
