@@ -18,20 +18,23 @@ namespace ProductionPractice.Components
         public Course()
         {
             this.BoughtCourse = new HashSet<BoughtCourse>();
+            this.Course_Tag = new HashSet<Course_Tag>();
             this.SellHistory = new HashSet<SellHistory>();
         }
     
         public int Id { get; set; }
-        public Nullable<System.TimeSpan> Length { get; set; }
+        public Nullable<double> Length { get; set; }
         public string Name { get; set; }
         public Nullable<int> AuthorId { get; set; }
-        public int TagId { get; set; }
-        public Nullable<int> Episodes { get; set; }
+        public int Episodes { get; set; }
         public byte[] Image { get; set; }
+        public Nullable<int> Rating { get; set; }
+        public string KnowledgeLevel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoughtCourse> BoughtCourse { get; set; }
-        public virtual Tag Tag { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Course_Tag> Course_Tag { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellHistory> SellHistory { get; set; }

@@ -18,12 +18,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Length" Type="time" Precision="7" />
+          <Property Name="Length" Type="float" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AuthorId" Type="int" />
-          <Property Name="TagId" Type="int" Nullable="false" />
-          <Property Name="Episodes" Type="int" />
+          <Property Name="Episodes" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="KnowledgeLevel" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Course_Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="TagId" Type="int" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -67,7 +76,7 @@
           <Property Name="SName" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Balance" Type="float" />
-          <Property Name="RoleId" Type="int" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_BoughtCourses_Course">
@@ -94,14 +103,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Course_Tag">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+        <Association Name="FK_Course_Tag_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Course_Tag" Type="Self.Course_Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course_Tag">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Tag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Course_Tag" Type="Self.Course_Tag" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tag">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Course">
+            <Dependent Role="Course_Tag">
               <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
@@ -143,7 +164,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
@@ -157,6 +178,7 @@
         <EntityContainer Name="Хранилище EgorovProductionPracticeModelContainer">
           <EntitySet Name="BoughtCourse" EntityType="Self.BoughtCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course_Tag" EntityType="Self.Course_Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellHistory" EntityType="Self.SellHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -170,9 +192,13 @@
             <End Role="User" EntitySet="User" />
             <End Role="BoughtCourse" EntitySet="BoughtCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK_Course_Tag" Association="Self.FK_Course_Tag">
-            <End Role="Tag" EntitySet="Tag" />
+          <AssociationSet Name="FK_Course_Tag_Course" Association="Self.FK_Course_Tag_Course">
             <End Role="Course" EntitySet="Course" />
+            <End Role="Course_Tag" EntitySet="Course_Tag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Tag_Tag" Association="Self.FK_Course_Tag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Course_Tag" EntitySet="Course_Tag" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_User" Association="Self.FK_Course_User">
             <End Role="User" EntitySet="User" />
@@ -198,6 +224,7 @@
         <EntityContainer Name="ProductionPracticeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BoughtCourse" EntityType="EgorovProductionPracticeModel.BoughtCourse" />
           <EntitySet Name="Course" EntityType="EgorovProductionPracticeModel.Course" />
+          <EntitySet Name="Course_Tag" EntityType="EgorovProductionPracticeModel.Course_Tag" />
           <EntitySet Name="Role" EntityType="EgorovProductionPracticeModel.Role" />
           <EntitySet Name="SellHistory" EntityType="EgorovProductionPracticeModel.SellHistory" />
           <EntitySet Name="sysdiagrams" EntityType="EgorovProductionPracticeModel.sysdiagrams" />
@@ -211,9 +238,9 @@
             <End Role="User" EntitySet="User" />
             <End Role="BoughtCourse" EntitySet="BoughtCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK_Course_Tag" Association="EgorovProductionPracticeModel.FK_Course_Tag">
-            <End Role="Tag" EntitySet="Tag" />
+          <AssociationSet Name="FK_Course_Tag_Course" Association="EgorovProductionPracticeModel.FK_Course_Tag_Course">
             <End Role="Course" EntitySet="Course" />
+            <End Role="Course_Tag" EntitySet="Course_Tag" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_User" Association="EgorovProductionPracticeModel.FK_Course_User">
             <End Role="User" EntitySet="User" />
@@ -222,6 +249,10 @@
           <AssociationSet Name="FK_SellHistory_Course" Association="EgorovProductionPracticeModel.FK_SellHistory_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="SellHistory" EntitySet="SellHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Tag_Tag" Association="EgorovProductionPracticeModel.FK_Course_Tag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Course_Tag" EntitySet="Course_Tag" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="EgorovProductionPracticeModel.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
@@ -247,16 +278,27 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Length" Type="Time" Precision="7" />
+          <Property Name="Length" Type="Double" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AuthorId" Type="Int32" />
-          <Property Name="TagId" Type="Int32" Nullable="false" />
-          <Property Name="Episodes" Type="Int32" />
+          <Property Name="Episodes" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="KnowledgeLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
-          <NavigationProperty Name="Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag" FromRole="Course" ToRole="Tag" />
+          <NavigationProperty Name="Course_Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Course" FromRole="Course" ToRole="Course_Tag" />
           <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_Course_User" FromRole="Course" ToRole="User" />
           <NavigationProperty Name="SellHistory" Relationship="EgorovProductionPracticeModel.FK_SellHistory_Course" FromRole="Course" ToRole="SellHistory" />
+        </EntityType>
+        <EntityType Name="Course_Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="TagId" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Course" FromRole="Course_Tag" ToRole="Course" />
+          <NavigationProperty Name="Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Tag" FromRole="Course_Tag" ToRole="Tag" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -292,7 +334,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_Tag" FromRole="Tag" ToRole="Course" />
+          <NavigationProperty Name="Course_Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Tag" FromRole="Tag" ToRole="Course_Tag" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -304,7 +346,7 @@
           <Property Name="SName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Balance" Type="Double" />
-          <Property Name="RoleId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_User" FromRole="User" ToRole="BoughtCourse" />
           <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_User" FromRole="User" ToRole="Course" />
@@ -335,15 +377,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Course_Tag">
-          <End Type="EgorovProductionPracticeModel.Tag" Role="Tag" Multiplicity="1" />
-          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="*" />
+        <Association Name="FK_Course_Tag_Course">
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.Course_Tag" Role="Course_Tag" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tag">
+            <Principal Role="Course">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Course">
-              <PropertyRef Name="TagId" />
+            <Dependent Role="Course_Tag">
+              <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -371,8 +413,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Course_Tag_Tag">
+          <End Type="EgorovProductionPracticeModel.Tag" Role="Tag" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.Course_Tag" Role="Course_Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course_Tag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
-          <End Type="EgorovProductionPracticeModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.Role" Role="Role" Multiplicity="1" />
           <End Type="EgorovProductionPracticeModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
@@ -413,12 +467,22 @@
           <EntitySetMapping Name="Course">
             <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="KnowledgeLevel" ColumnName="KnowledgeLevel" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Episodes" ColumnName="Episodes" />
-                <ScalarProperty Name="TagId" ColumnName="TagId" />
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course_Tag">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course_Tag">
+              <MappingFragment StoreEntitySet="Course_Tag">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

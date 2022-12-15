@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegistrationPage">
 
-    <Grid Background="#46b5d5">
+    <Grid>
         <Border MinHeight="100"
                 MaxHeight="600"
                 MinWidth="400" 

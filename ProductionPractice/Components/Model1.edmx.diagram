@@ -5,18 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e45f211c4225471f98b06ae5b9ce365c" Name="Diagram1">
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.BoughtCourse" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Course" Width="1.5" PointX="8.25" PointY="3" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Role" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.SellHistory" Width="1.5" PointX="10.5" PointY="3.5" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.25" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Tag" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="EgorovProductionPracticeModel.User" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.BoughtCourse" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Course" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Course_Tag" Width="1.5" PointX="7.5" PointY="8.625" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Role" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.SellHistory" Width="1.5" PointX="7.5" PointY="2.25" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.Tag" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="EgorovProductionPracticeModel.User" Width="1.5" PointX="3" PointY="3.25" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_BoughtCourses_Course" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_BoughtCourses_User" />
-        <AssociationConnector Association="EgorovProductionPracticeModel.FK_Course_Tag" />
+        <AssociationConnector Association="EgorovProductionPracticeModel.FK_Course_Tag_Course" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_Course_User" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_SellHistory_Course" />
+        <AssociationConnector Association="EgorovProductionPracticeModel.FK_Course_Tag_Tag" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_User_Role" />
         <AssociationConnector Association="EgorovProductionPracticeModel.FK_SellHistory_User" />
       </Diagram>
