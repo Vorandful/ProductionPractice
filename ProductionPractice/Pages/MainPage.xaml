@@ -8,11 +8,84 @@
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="MainPage">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="200" MaxWidth="400"/>
-            <ColumnDefinition MinWidth="500" MaxWidth="700"/>
-        </Grid.ColumnDefinitions>
-        
+    <Grid Background="#46b5d5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Background="White" Height="100">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="423*"/>
+                    <ColumnDefinition Width="314*"/>
+                </Grid.ColumnDefinitions>
+                <!--Первый столбец (сортировка)-->
+                <ComboBox Grid.Column="0" HorizontalAlignment="Center" Width="200" Height="60" Margin="10 0 200 0">
+
+                </ComboBox>
+                <ComboBox Grid.Column="0" HorizontalAlignment="Center" Height="60" Margin="300 0 20 0" Width="200">
+
+                </ComboBox >
+                <!--Второй столбец (поиск)-->
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="Поиск:" VerticalAlignment="Center" FontSize="20"/>
+                <Border CornerRadius="40" Grid.Column="1" BorderThickness="2" BorderBrush="Black" Width="auto" Height="auto" Margin="66,15,21,15">
+                    <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="70" Width="280" FontSize="20"/>
+                </Border>
+
+
+
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250" MaxWidth="300"/>
+                <ColumnDefinition MinWidth="500" MaxWidth="700"/>
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="1">
+                <Border Background="White" MinWidth="450" MaxWidth="674" MinHeight="100" MaxHeight="150" Padding="10">
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect ShadowDepth="0.5"/>
+                    </Border.BitmapEffect>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="100" Height="100"/> <!-- Картинка курса -->
+                        <Grid MinWidth="300" MaxWidth="500">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" /> <!-- Название курса -->
+                            <TextBlock Grid.Row="1" /> <!-- Автор -->
+                            <TextBlock Grid.Row="2" /> <!-- Длина курса -->
+                            <TextBlock Grid.Row="3" /> <!-- рейтинг по 5-ти бальной -->
+                           
+                        </Grid>
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top"/> <!-- Цена -->
+                    </StackPanel>
+                </Border>
+            </ListView>
+            
+            <Border Grid.Column="0" Background="White" Padding="10">
+                <StackPanel>
+                    <Border>
+                        <TextBlock Text="Основной тэг" FontSize="20"/>
+                    </Border>
+
+                    <ListView Height="200">
+
+                    </ListView>
+                    <Border>
+                        <TextBlock Text="Уровень" FontSize="20"/>
+                    </Border>
+                    <ListView Height="200">
+
+                    </ListView>
+                </StackPanel>
+            </Border>
+
+        </Grid>
     </Grid>
 </Page>
