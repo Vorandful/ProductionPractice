@@ -12,18 +12,13 @@ namespace ProductionPractice.Components
     using System;
     using System.Collections.Generic;
     
-    public partial class Tag
+    public partial class Course_Tag
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tag()
-        {
-            this.Course_Tag = new HashSet<Course_Tag>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public Nullable<int> CourseId { get; set; }
+        public Nullable<int> TagId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course_Tag> Course_Tag { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }

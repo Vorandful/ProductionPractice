@@ -24,15 +24,25 @@
           <Property Name="Episodes" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="Rating" Type="int" />
-          <Property Name="KnowledgeLevel" Type="varchar" MaxLength="50" />
+          <Property Name="KnowledgeLevelId" Type="int" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Software" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="Course_Tag">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CourseId" Type="int" />
           <Property Name="TagId" Type="int" />
+        </EntityType>
+        <EntityType Name="KnowledgeLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -100,6 +110,18 @@
             </Principal>
             <Dependent Role="BoughtCourse">
               <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_KnowledgeLevel">
+          <End Role="KnowledgeLevel" Type="Self.KnowledgeLevel" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KnowledgeLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="KnowledgeLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -179,6 +201,7 @@
           <EntitySet Name="BoughtCourse" EntityType="Self.BoughtCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course_Tag" EntityType="Self.Course_Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KnowledgeLevel" EntityType="Self.KnowledgeLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellHistory" EntityType="Self.SellHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -191,6 +214,10 @@
           <AssociationSet Name="FK_BoughtCourses_User" Association="Self.FK_BoughtCourses_User">
             <End Role="User" EntitySet="User" />
             <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_KnowledgeLevel" Association="Self.FK_Course_KnowledgeLevel">
+            <End Role="KnowledgeLevel" EntitySet="KnowledgeLevel" />
+            <End Role="Course" EntitySet="Course" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_Tag_Course" Association="Self.FK_Course_Tag_Course">
             <End Role="Course" EntitySet="Course" />
@@ -225,6 +252,7 @@
           <EntitySet Name="BoughtCourse" EntityType="EgorovProductionPracticeModel.BoughtCourse" />
           <EntitySet Name="Course" EntityType="EgorovProductionPracticeModel.Course" />
           <EntitySet Name="Course_Tag" EntityType="EgorovProductionPracticeModel.Course_Tag" />
+          <EntitySet Name="KnowledgeLevel" EntityType="EgorovProductionPracticeModel.KnowledgeLevel" />
           <EntitySet Name="Role" EntityType="EgorovProductionPracticeModel.Role" />
           <EntitySet Name="SellHistory" EntityType="EgorovProductionPracticeModel.SellHistory" />
           <EntitySet Name="sysdiagrams" EntityType="EgorovProductionPracticeModel.sysdiagrams" />
@@ -237,6 +265,10 @@
           <AssociationSet Name="FK_BoughtCourses_User" Association="EgorovProductionPracticeModel.FK_BoughtCourses_User">
             <End Role="User" EntitySet="User" />
             <End Role="BoughtCourse" EntitySet="BoughtCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_KnowledgeLevel" Association="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel">
+            <End Role="KnowledgeLevel" EntitySet="KnowledgeLevel" />
+            <End Role="Course" EntitySet="Course" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_Tag_Course" Association="EgorovProductionPracticeModel.FK_Course_Tag_Course">
             <End Role="Course" EntitySet="Course" />
@@ -284,8 +316,12 @@
           <Property Name="Episodes" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Rating" Type="Int32" />
-          <Property Name="KnowledgeLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KnowledgeLevelId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Software" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
+          <NavigationProperty Name="KnowledgeLevel" Relationship="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel" FromRole="Course" ToRole="KnowledgeLevel" />
           <NavigationProperty Name="Course_Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Course" FromRole="Course" ToRole="Course_Tag" />
           <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_Course_User" FromRole="Course" ToRole="User" />
           <NavigationProperty Name="SellHistory" Relationship="EgorovProductionPracticeModel.FK_SellHistory_Course" FromRole="Course" ToRole="SellHistory" />
@@ -294,11 +330,19 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CourseId" Type="Int32" />
           <Property Name="TagId" Type="Int32" />
           <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Course" FromRole="Course_Tag" ToRole="Course" />
           <NavigationProperty Name="Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Tag" FromRole="Course_Tag" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="KnowledgeLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel" FromRole="KnowledgeLevel" ToRole="Course" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -374,6 +418,18 @@
             </Principal>
             <Dependent Role="BoughtCourse">
               <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_KnowledgeLevel">
+          <End Type="EgorovProductionPracticeModel.KnowledgeLevel" Role="KnowledgeLevel" Multiplicity="0..1" />
+          <End Type="EgorovProductionPracticeModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KnowledgeLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="KnowledgeLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -467,7 +523,10 @@
           <EntitySetMapping Name="Course">
             <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course">
               <MappingFragment StoreEntitySet="Course">
-                <ScalarProperty Name="KnowledgeLevel" ColumnName="KnowledgeLevel" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Software" ColumnName="Software" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="KnowledgeLevelId" ColumnName="KnowledgeLevelId" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Episodes" ColumnName="Episodes" />
@@ -483,6 +542,14 @@
               <MappingFragment StoreEntitySet="Course_Tag">
                 <ScalarProperty Name="TagId" ColumnName="TagId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KnowledgeLevel">
+            <EntityTypeMapping TypeName="EgorovProductionPracticeModel.KnowledgeLevel">
+              <MappingFragment StoreEntitySet="KnowledgeLevel">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

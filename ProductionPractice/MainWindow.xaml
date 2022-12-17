@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:ProductionPractice"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000"  Background="#46b5d5">
+        ResizeMode="CanMinimize"
+        Title="MainWindow" Height="600" Width="1000" Background="#46b5d5">
     <Grid>
         <Frame x:Name="MainFrame"
                NavigationUIVisibility="Hidden" />

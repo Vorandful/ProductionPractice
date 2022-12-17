@@ -9,6 +9,39 @@
       Title="CourseEditPage">
 
     <Grid>
-        
+        <Border Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="440" MinHeight="420" MaxWidth="780" MinWidth="760" Padding="40 20 40 0" CornerRadius="30">
+            <StackPanel>
+                <Grid MinHeight="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" Padding="10" BorderBrush="Black" BorderThickness="1" CornerRadius="10" MaxHeight="400" VerticalAlignment="Top" Margin="0 20 0 0">
+                        <StackPanel>
+                            <Image Width="auto" Height="200" Source="{Binding}"/>
+                            <Button Content="добавить фото" x:Name="CoursePhotoAdd" />
+                        </StackPanel>
+                       
+                    </Border>
+                    <Border Grid.Column="0" Padding="20 40 20 0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="280" MaxWidth="300" MinHeight="300" MaxHeight="400">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Название курса:" FontSize="18"/>
+                        <TextBox x:Name="TB_CourseName"/>
+                            <TextBlock Text="Количество эпизодов" FontSize="18"/>
+                        <TextBox x:Name="TB_Episodes"/>
+                            <TextBlock Text="Длина курса" FontSize="18"/>
+                        <TextBox x:Name="TB_length"/>
+                            <TextBlock Text="Уровнь знаний" FontSize="18"/>
+                        <ComboBox x:Name="CB_Level" DisplayMemberPath="Name" SelectedItem="{Binding KnowledgeLevelId}"/>
+                        
+                    </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Button Content="Сохранить изменеия" Margin="0 0 0 10"/>
+                <Button Content="Отмена изменений" Background="red" BorderBrush="red"/>
+                
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

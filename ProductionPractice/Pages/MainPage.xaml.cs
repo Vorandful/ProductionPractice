@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductionPractice.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,29 @@ namespace ProductionPractice.Pages
         public MainPage()
         {
             InitializeComponent();
+            LV_Courses.ItemsSource = App.DB.Course.ToList(); 
+        }
+        private void Refresh()
+        {
+            if (string.IsNullOrWhiteSpace(TBSearch.Text))
+            {
+                LV_Courses.ItemsSource = App.DB.Course.ToList();
+            }
+            else
+            {
+                LV_Courses.ItemsSource = App.DB.Course.Where(a => a.Name.ToString().Contains(TBSearch.Text.ToLower())).ToList();
+            }
+
+        }
+
+        private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void ToProfile_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProfilePage());
         }
     }
 }

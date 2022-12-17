@@ -29,10 +29,14 @@ namespace ProductionPractice.Components
         public int Episodes { get; set; }
         public byte[] Image { get; set; }
         public Nullable<int> Rating { get; set; }
-        public string KnowledgeLevel { get; set; }
+        public Nullable<int> KnowledgeLevelId { get; set; }
+        public string Description { get; set; }
+        public string Software { get; set; }
+        public Nullable<double> Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoughtCourse> BoughtCourse { get; set; }
+        public virtual KnowledgeLevel KnowledgeLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course_Tag> Course_Tag { get; set; }
         public virtual User User { get; set; }

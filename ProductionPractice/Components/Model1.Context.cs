@@ -27,6 +27,8 @@ namespace ProductionPractice.Components
     
         public virtual DbSet<BoughtCourse> BoughtCourse { get; set; }
         public virtual DbSet<Course> Course { get; set; }
+        public virtual DbSet<Course_Tag> Course_Tag { get; set; }
+        public virtual DbSet<KnowledgeLevel> KnowledgeLevel { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<SellHistory> SellHistory { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
