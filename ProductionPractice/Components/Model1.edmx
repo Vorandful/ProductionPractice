@@ -23,10 +23,9 @@
           <Property Name="AuthorId" Type="int" />
           <Property Name="Episodes" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
-          <Property Name="Rating" Type="int" />
           <Property Name="KnowledgeLevelId" Type="int" />
           <Property Name="Description" Type="text" />
-          <Property Name="Software" Type="varchar" MaxLength="50" />
+          <Property Name="Software" Type="text" />
           <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="Course_Tag">
@@ -315,10 +314,9 @@
           <Property Name="AuthorId" Type="Int32" />
           <Property Name="Episodes" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Rating" Type="Int32" />
           <Property Name="KnowledgeLevelId" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Software" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Software" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Double" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
           <NavigationProperty Name="KnowledgeLevel" Relationship="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel" FromRole="Course" ToRole="KnowledgeLevel" />
@@ -527,7 +525,6 @@
                 <ScalarProperty Name="Software" ColumnName="Software" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="KnowledgeLevelId" ColumnName="KnowledgeLevelId" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Episodes" ColumnName="Episodes" />
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />

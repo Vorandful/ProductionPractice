@@ -28,7 +28,6 @@ namespace ProductionPractice.Components
         public Nullable<int> AuthorId { get; set; }
         public int Episodes { get; set; }
         public byte[] Image { get; set; }
-        public Nullable<int> Rating { get; set; }
         public Nullable<int> KnowledgeLevelId { get; set; }
         public string Description { get; set; }
         public string Software { get; set; }

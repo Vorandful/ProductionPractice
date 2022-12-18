@@ -231,7 +231,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\wallet_plus_icon_135032.png" />
+    <Resource Include="Resources\wallet.png" />
     <Resource Include="Resources\user.png" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProductionPractice.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Loaded="Page_Loaded"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="MainPage">
@@ -27,13 +28,15 @@
                      materialDesign:HintAssist.Hint=""
                      materialDesign:HintAssist.HelperText="Сортировка"
                      Height="50"
-                     Width="270">
-                    <ComboBoxItem
+                     Width="270" 
+                     SelectionChanged="ComboBox_SelectionChanged"
+                     x:Name="SortCB">
+                    <ComboBoxItem 
                      Content="По возрастанию цены" />
-                    <ComboBoxItem
+                    <ComboBoxItem 
                      Content="По убыванию цены" />
-                    <ComboBoxItem
-                     Content="по умолчанию" />
+                    <ComboBoxItem 
+                     Content="По умолчанию"/>
                 </ComboBox>
                 <!--Второй столбец (поиск)-->
                 <TextBox
@@ -44,7 +47,7 @@
                  AcceptsReturn="True"
                  TextWrapping="Wrap"
                  Width="400"
-                 materialDesign:HintAssist.Hint="ПОИСК"/>
+                 materialDesign:HintAssist.Hint="ПОИСК" TextChanged="TBSearch_TextChanged"/>
 
                 <Border HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 0" >
                     <StackPanel>
@@ -62,17 +65,17 @@
             <ListView Grid.Column="1" x:Name="LV_Courses" Width="auto" Height="auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#eaeaea" MinWidth="500" MinHeight="100" MaxHeight="150" Padding="10">
+                        <Border Background="#eaeaea" MinWidth="400" MaxWidth="700" MinHeight="100" MaxHeight="150" Padding="10">
                     <Border.BitmapEffect>
                         <DropShadowBitmapEffect ShadowDepth="0.5"/>
                     </Border.BitmapEffect>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                 <Border Background="White" Padding="5">
-                                    <Image Width="100" Height="100" Source="{Binding}"/>
+                                    <Image Width="100" Height="100" Source="{Binding Image}"/>
                                     <!-- Картинка курса -->
                                 </Border>
-                                <Border Background="White" >
-                                    <Grid MinWidth="550" MaxWidth="680">
+                                <Border Background="White" Padding="10" Margin="0 0 10 0" >
+                                    <Grid MinWidth="400" MaxWidth="600">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
                                             <RowDefinition/>
@@ -83,17 +86,17 @@
                                         <!-- Название курса -->
                                         <TextBlock Grid.Row="1" Text="{Binding User.NickName, StringFormat='Автор: {0}'}"/>
                                         <!-- Автор -->
-                                        <TextBlock Grid.Row="2" Text="{Binding Length, StringFormat='длительность: {0} часов'}"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding Length, StringFormat='длительность: {0} чаc(ов)'}"/>
                                         <!-- Длина курса -->
-                                        <TextBlock Grid.Row="3" Text="5"/>
-                                        <!-- рейтинг по 5-ти бальной -->
-                                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Text="{Binding Price}"/>
+                                        <TextBlock Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 20 0" Text="{Binding Price, StringFormat='цена: {0} руб'}"/>
                                         <!-- Цена -->
                                     </Grid>
                                 </Border>
-                        
-                        
-                    </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <Button Content="Купить" Margin="0 0 0 0" x:Name="Buy_btn" Click="Buy_Click"/>
+                                    <Button Content="Редактировать" Margin="0 10 0 0" x:Name="Edit" Click="Edit_Click"/>
+                                </StackPanel>
+                            </StackPanel>
                 </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -105,14 +108,18 @@
                     <Border>
                         <StackPanel Margin="0 0 0 100">
                             <TextBlock Text="Уровень знаний" FontSize="20" HorizontalAlignment="Center"/>
-                            <Button Content="Все уровни" Margin="0 10 0 0"/>
-                            <Button Content="Начальный" Margin="0 10 0 0"/>
-                            <Button Content="Продвинутый" Margin="0 10 0 0"/>
-                            <Button Content="Проффесиональный" Margin="0 10 0 0"/>
+                            <Button Content="Начальный" x:Name="Beginner" Margin="0 10 0 0" Click="Beginner_Click"/>
+                            <Button Content="Продвинутый" x:Name="Advanced" Margin="0 10 0 0" Click="Advanced_Click"/>
+                            <Button Content="Проффесиональный" x:Name="Proffesional" Margin="0 10 0 0" Click="Proffesional_Click"/>
+                            <Button Content="Сбросить" x:Name="ByDefault" Margin="0 10 0 0" Background="#FF883AB7" Click="ByDefault_Click"/>
                         </StackPanel>
                     </Border>
-                    
-                    
+                    <TextBlock Text="Баланс" HorizontalAlignment="Center" FontSize="20"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock x:Name="BalanceOnMainPage" FontSize="20"/>
+                        <TextBlock Text=" Руб." FontSize="20"/>
+                    </StackPanel>
+                   
                 </StackPanel>
             </Border>
 

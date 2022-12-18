@@ -21,10 +21,55 @@ namespace ProductionPractice.Pages
     /// </summary>
     public partial class MainPage : Page
     {
+
         public MainPage()
         {
             InitializeComponent();
-            LV_Courses.ItemsSource = App.DB.Course.ToList(); 
+            LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Name).ToList();
+            BalanceOnMainPage.Text = App.LoggedUser.Balance.ToString();
+        }
+       
+
+        private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void ToProfile_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProfilePage());
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourse = (sender as Button).DataContext as Course;
+            NavigationService.Navigate(new CourseEditPage(selectedCourse));
+        }
+
+        private void Beginner_Click(object sender, RoutedEventArgs e)
+        {            
+                LV_Courses.ItemsSource = App.DB.Course.Where(a => a.KnowledgeLevelId == 1).ToList();            
+        }
+
+        private void Advanced_Click(object sender, RoutedEventArgs e)
+        {
+            LV_Courses.ItemsSource = App.DB.Course.Where(a => a.KnowledgeLevelId == 2).ToList();
+        }
+
+        private void Proffesional_Click(object sender, RoutedEventArgs e)
+        {
+            LV_Courses.ItemsSource = App.DB.Course.Where(a => a.KnowledgeLevelId == 3).ToList();
+        }
+
+        private void ByDefault_Click(object sender, RoutedEventArgs e)
+        {
+            LV_Courses.ItemsSource = App.DB.Course.ToList();
+            TBSearch.Text = null;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) //Сортировка
+        {
+            Refresh();
         }
         private void Refresh()
         {
@@ -36,17 +81,48 @@ namespace ProductionPractice.Pages
             {
                 LV_Courses.ItemsSource = App.DB.Course.Where(a => a.Name.ToString().Contains(TBSearch.Text.ToLower())).ToList();
             }
-
+            switch (SortCB.SelectedIndex)
+            {
+                case 2:
+                    LV_Courses.ItemsSource = App.DB.Course.OrderBy(x =>x.Name).ToList();
+                    break;
+                case 1:
+                    LV_Courses.ItemsSource = App.DB.Course.OrderByDescending(x => x.Price).ToList();
+                    break;
+                case 0:
+                    LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Price).ToList();
+                    break;
+            }
+            BalanceOnMainPage.Text = App.LoggedUser.Balance.ToString();
         }
 
-        private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Refresh();
         }
 
-        private void ToProfile_Click(object sender, RoutedEventArgs e)
+        private void Buy_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ProfilePage());
+            var selectedCourse = (sender as Button).DataContext as Course;
+            if (App.LoggedUser.Balance < selectedCourse.Price) 
+            {
+                MessageBox.Show("Бомж, хаха");
+                return;
+            }
+       
+            if (MessageBox.Show($"Вы действительно хотите купить курс {selectedCourse.Name}", "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) 
+            {
+                App.LoggedUser.Balance = App.LoggedUser.Balance - selectedCourse.Price;
+                App.DB.SaveChanges();
+                Refresh();
+            }
+
+
+
+
+
+
+
         }
     }
 }

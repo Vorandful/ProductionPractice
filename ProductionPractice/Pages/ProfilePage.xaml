@@ -19,13 +19,13 @@
             <Border.BitmapEffect>
                 <DropShadowBitmapEffect ShadowDepth="1" Direction="180"/>
             </Border.BitmapEffect>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
                 <Button Content="На главную" Name="GoToMainPageBtn" Click="GoToMainPageBtn_Click"/>
-                <TextBlock x:Name="balanceProfilePage" HorizontalAlignment="Right" Margin="750 0 0 0" VerticalAlignment="Center" FontSize="20"/>
+                <TextBlock x:Name="balanceProfilePage" HorizontalAlignment="Right" Margin="100 0 0 0" VerticalAlignment="Center" FontSize="20"/>
                 <TextBlock Text="Руб." VerticalAlignment="Center" FontSize="20" HorizontalAlignment="Right"/>
-                <Button Name="AddMoney" Background="Transparent" BorderBrush="Transparent" Click="GoToBalanceAddPage">
+                <Button Name="AddMoney" Background="Transparent" BorderBrush="Transparent" Click="GoToBalanceAddPage" Width="auto" Padding="0" Height="auto">
                     <Button.Content>
-                        <Image Source="/Resources/wallet_plus_icon_135032.png" Height="25"/>
+                        <Image Source="/Resources/wallet.png" Height="30"/>
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -117,11 +117,26 @@
                                     </Expander.Header>
                                     <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
                                         <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Row="0">
+                                                <StackPanel>
+                                                    
+                                                </StackPanel>
+                                            </Border>
+                                            <Border Grid.Row="1">
+                                                <StackPanel>
+
+                                                </StackPanel>
+                                            </Border>
+                                            <Border Grid.Row="2">
+                                                <StackPanel>
+
+                                                </StackPanel>
+                                            </Border>
                                         </Grid>
 
                                     </StackPanel>

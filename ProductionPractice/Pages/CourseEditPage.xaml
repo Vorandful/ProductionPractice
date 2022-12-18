@@ -18,28 +18,28 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="1" Padding="10" BorderBrush="Black" BorderThickness="1" CornerRadius="10" MaxHeight="400" VerticalAlignment="Top" Margin="0 20 0 0">
                         <StackPanel>
-                            <Image Width="auto" Height="200" Source="{Binding}"/>
-                            <Button Content="добавить фото" x:Name="CoursePhotoAdd" />
+                            <Image Width="auto" Height="200" Source="{Binding Image}"/>
+                            <Button Content="добавить фото" x:Name="CoursePhotoAdd" Click="CoursePhotoAdd_Click" />
                         </StackPanel>
                        
                     </Border>
                     <Border Grid.Column="0" Padding="20 40 20 0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="280" MaxWidth="300" MinHeight="300" MaxHeight="400">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Название курса:" FontSize="18"/>
-                        <TextBox x:Name="TB_CourseName"/>
+                        <TextBlock Text="Название курса" FontSize="18" />
+                        <TextBox Text="{Binding Name}"/>
                             <TextBlock Text="Количество эпизодов" FontSize="18"/>
-                        <TextBox x:Name="TB_Episodes"/>
+                        <TextBox Text="{Binding Episodes}"/>
                             <TextBlock Text="Длина курса" FontSize="18"/>
-                        <TextBox x:Name="TB_length"/>
+                        <TextBox Text="{Binding Length}"/>
                             <TextBlock Text="Уровнь знаний" FontSize="18"/>
-                        <ComboBox x:Name="CB_Level" DisplayMemberPath="Name" SelectedItem="{Binding KnowledgeLevelId}"/>
+                        <ComboBox x:Name="CB_Level" DisplayMemberPath="Name" SelectedItem="{Binding KnowledgeLevel}"/>
                         
                     </StackPanel>
                     </Border>
                 </Grid>
 
-                <Button Content="Сохранить изменеия" Margin="0 0 0 10"/>
-                <Button Content="Отмена изменений" Background="red" BorderBrush="red"/>
+                <Button Content="Сохранить изменеия" Margin="0 0 0 10" Click="Button_Click"/>
+                <Button Content="Отмена изменений" Background="red" BorderBrush="red" Click="Button_Click_1"/>
                 
             </StackPanel>
         </Border>

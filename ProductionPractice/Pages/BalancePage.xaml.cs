@@ -88,9 +88,10 @@ namespace ProductionPractice.Pages
         }
 
         private void MoneyAdd_Click(object sender, RoutedEventArgs e)
-        {
+        {    
             App.LoggedUser.Balance = double.Parse(balanceProfilePageTB.Text);
             App.DB.SaveChanges();
+            NavigationService.GoBack();
         }
     }
 }
