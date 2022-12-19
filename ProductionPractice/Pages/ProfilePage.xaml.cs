@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +30,8 @@ namespace ProductionPractice.Pages
             Email.Text = App.LoggedUser.Email;
             NickName.Text = App.LoggedUser.NickName;
             balanceProfilePage.Text =App.LoggedUser.Balance.ToString();
+            LVYourCourses.ItemsSource = App.LoggedUser.Course.ToList();
+            BoughtCourses.ItemsSource = App.LoggedUser.BoughtCourse.ToList();
         }
 
         private void GoToMainPageBtn_Click(object sender, RoutedEventArgs e)
@@ -43,6 +46,20 @@ namespace ProductionPractice.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             balanceProfilePage.Text = App.LoggedUser.Balance.ToString();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) //Новый курс
+        {
+            NavigationService.Navigate(new CourseEditPage(new Course(){AuthorId = App.LoggedUser.Id}));
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            App.LoggedUser.Fname = FirstName.Text;
+            App.LoggedUser.SName = SecondName.Text;
+            App.LoggedUser.Email = Email.Text;
+            App.LoggedUser.NickName = NickName.Text;
+            App.DB.SaveChanges();
         }
     }
 }

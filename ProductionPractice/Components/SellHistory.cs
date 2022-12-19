@@ -16,7 +16,8 @@ namespace ProductionPractice.Components
     {
         public int Id { get; set; }
         public Nullable<int> AuthorId { get; set; }
-        public Nullable<int> CourseId { get; set; }
+        public Nullable<int> CourseID { get; set; }
+        public Nullable<double> Price { get; set; }
     
         public virtual Course Course { get; set; }
         public virtual User User { get; set; }

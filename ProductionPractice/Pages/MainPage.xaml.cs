@@ -21,7 +21,6 @@ namespace ProductionPractice.Pages
     /// </summary>
     public partial class MainPage : Page
     {
-
         public MainPage()
         {
             InitializeComponent();
@@ -42,8 +41,20 @@ namespace ProductionPractice.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            var selectedCourse = (sender as Button).DataContext as Course;
-            NavigationService.Navigate(new CourseEditPage(selectedCourse));
+            var selectedCourse = LV_Courses.SelectedItem as Course;
+            if (App.LoggedUser.Id != selectedCourse.Id)
+            {
+                if (App.LoggedUser.RoleId == 2)
+                {
+                    NavigationService.Navigate(new CourseEditPage(selectedCourse));
+                }
+                else 
+                {
+                    MessageBox.Show(" У вас нет доступа к редактированию этого курса");
+                }
+                
+            }
+            else {NavigationService.Navigate(new CourseEditPage(selectedCourse));}
         }
 
         private void Beginner_Click(object sender, RoutedEventArgs e)
@@ -98,6 +109,7 @@ namespace ProductionPractice.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            
             Refresh();
         }
 
@@ -112,17 +124,19 @@ namespace ProductionPractice.Pages
        
             if (MessageBox.Show($"Вы действительно хотите купить курс {selectedCourse.Name}", "Уведомление", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) 
             {
+                var courseauthor = App.DB.User.FirstOrDefault(emp => emp.Id == selectedCourse.AuthorId);
+                App.DB.SellHistory.Add(new SellHistory(){ CourseID = selectedCourse.Id, AuthorId = selectedCourse.AuthorId, Price = selectedCourse.Price});
+                courseauthor.Balance = courseauthor.Balance + selectedCourse.Price;
+                App.DB.BoughtCourse.Add(new BoughtCourse(){AuthorId = App.LoggedUser.Id, CourseId = selectedCourse.Id});
                 App.LoggedUser.Balance = App.LoggedUser.Balance - selectedCourse.Price;
                 App.DB.SaveChanges();
                 Refresh();
             }
+        }
 
-
-
-
-
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new LoginPage());
         }
     }
 }

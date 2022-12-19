@@ -45,25 +45,25 @@
                                     <TextBlock Text="Личные данные" FontSize="18" HorizontalAlignment="Center"/>
                                 </Expander.Header>
                                 <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Имя:" FontSize="20"/>
-                                        <TextBlock Text="Фамилия:" Grid.Row="1" FontSize="20"/>
-                                        <TextBlock Text="Электронная почта:" Grid.Row="2" FontSize="20"/>
-                                        <TextBlock Grid.Column="1" FontSize="20" x:Name="FirstName" HorizontalAlignment="Center" Margin="0 10 0 0"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="SecondName" HorizontalAlignment="Center" Margin="0 10 0 0"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="Email" HorizontalAlignment="Center" Margin="0 10 0 0"/>
-                                    </Grid>
-
-                                </StackPanel>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Имя:" FontSize="20"/>
+                                            <TextBlock Text="Фамилия:" Grid.Row="1" FontSize="20"/>
+                                            <TextBlock Text="Электронная почта:" Grid.Row="2" FontSize="20"/>
+                                            <TextBox Grid.Column="1" FontSize="20" x:Name="FirstName" HorizontalAlignment="Center" MinWidth="200" MaxWidth="400" Margin="0 10 0 0"/>
+                                            <TextBox Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="SecondName" HorizontalAlignment="Center"  MinWidth="200" MaxWidth="400"  Margin="0 10 0 0"/>
+                                            <TextBox Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="Email" HorizontalAlignment="Center"  MinWidth="200" MaxWidth="400"  Margin="0 10 0 0"/>
+                                        </Grid>
+                                        <Button Content="Сохранить изменения" Click="Button_Click_1" Margin="0 10 0 0"/>
+                                    </StackPanel>
                             </Expander>
                         </Border>
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10" Margin="0 0 0 5">
@@ -122,19 +122,36 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Border Grid.Row="0">
+                                            <Border Grid.Row="0" >
                                                 <StackPanel>
-                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Ваши курсы:" FontSize="20"/>
+                                                        <Button Content="Добавить курс" Margin="420 0 0 0" Click="Button_Click"/>
+                                                    </StackPanel>
+                                                   
+                                                    <ListView x:Name="LVYourCourses">
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{Binding Name, StringFormat='Название курса: {0}'}"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
                                                 </StackPanel>
                                             </Border>
                                             <Border Grid.Row="1">
                                                 <StackPanel>
-
-                                                </StackPanel>
-                                            </Border>
-                                            <Border Grid.Row="2">
-                                                <StackPanel>
-
+                                                    <TextBlock Text="Купленные курсы:" FontSize="20"/>
+                                                    <ListView x:Name="BoughtCourses">
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{Binding Course.Name, StringFormat='Название курса: {0}'}"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
                                                 </StackPanel>
                                             </Border>
                                         </Grid>

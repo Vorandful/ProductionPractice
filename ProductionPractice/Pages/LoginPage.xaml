@@ -25,7 +25,7 @@
                 <DropShadowEffect BlurRadius="20" Color="Gray" ShadowDepth="0"/>
             </Border.Effect>
             <StackPanel>
-                <TextBlock Text="Sign in" FontWeight="Bold" FontSize="20" Margin="0 0 0 20" HorizontalAlignment="Center"/>
+                <TextBlock Text="Авторизация" FontWeight="Bold" FontSize="20" Margin="0 0 0 20" HorizontalAlignment="Center"/>
 
                 <Grid Margin="0 0 0 20">
                     <Grid.RowDefinitions>
@@ -35,14 +35,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="0">
                  
-                        <TextBox Name="Tb_login" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="20"  materialDesign:HintAssist.Hint="login"/>
+                        <TextBox Name="Tb_login" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="20"  materialDesign:HintAssist.Hint="Логин"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
                       
                         <PasswordBox
                             x:Name="Pb_password"
-                            materialDesign:HintAssist.Hint="Password"
+                            materialDesign:HintAssist.Hint="Пароль"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Margin="0 0 0 30"
                             HorizontalContentAlignment="Center" FontSize="20"/>

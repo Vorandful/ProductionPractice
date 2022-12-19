@@ -24,8 +24,6 @@
           <Property Name="Episodes" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="KnowledgeLevelId" Type="int" />
-          <Property Name="Description" Type="text" />
-          <Property Name="Software" Type="text" />
           <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="Course_Tag">
@@ -56,7 +54,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorId" Type="int" />
-          <Property Name="CourseId" Type="int" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -168,7 +167,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="SellHistory">
-              <PropertyRef Name="CourseId" />
+              <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -315,8 +314,6 @@
           <Property Name="Episodes" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="KnowledgeLevelId" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Software" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Double" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
           <NavigationProperty Name="KnowledgeLevel" Relationship="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel" FromRole="Course" ToRole="KnowledgeLevel" />
@@ -356,7 +353,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorId" Type="Int32" />
-          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="Price" Type="Double" />
           <NavigationProperty Name="Course" Relationship="EgorovProductionPracticeModel.FK_SellHistory_Course" FromRole="SellHistory" ToRole="Course" />
           <NavigationProperty Name="User" Relationship="EgorovProductionPracticeModel.FK_SellHistory_User" FromRole="SellHistory" ToRole="User" />
         </EntityType>
@@ -463,7 +461,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="SellHistory">
-              <PropertyRef Name="CourseId" />
+              <PropertyRef Name="CourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -522,8 +520,6 @@
             <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course">
               <MappingFragment StoreEntitySet="Course">
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Software" ColumnName="Software" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="KnowledgeLevelId" ColumnName="KnowledgeLevelId" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Episodes" ColumnName="Episodes" />
@@ -562,7 +558,8 @@
           <EntitySetMapping Name="SellHistory">
             <EntityTypeMapping TypeName="EgorovProductionPracticeModel.SellHistory">
               <MappingFragment StoreEntitySet="SellHistory">
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
