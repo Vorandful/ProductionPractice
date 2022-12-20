@@ -35,7 +35,7 @@ namespace ProductionPractice.Pages
         private void Button_Click(object sender, RoutedEventArgs e) //save
         {
             
-            if (coursecontext.Id == 0) //проверочка на добавление или редактирование
+            if (coursecontext.Id == 0)
             {
                 App.DB.Course.Add(coursecontext);
             }
