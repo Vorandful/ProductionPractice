@@ -47,8 +47,8 @@
                         <TextBlock Text="Email" HorizontalAlignment="Center"  FontSize="18"/>
                         <TextBox Name="TB_EmailAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
                     </StackPanel>
-
-                    <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Registration" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0" Click="Button_Click"/>
+                    <Button VerticalAlignment="Bottom" Content="назад" FontSize="18" Grid.Row="3" HorizontalAlignment="Right" Click="Button_Click_1"/>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Registration" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0" Click="Button_Click"/>
                 </Grid>
             </StackPanel>
         </Border>
