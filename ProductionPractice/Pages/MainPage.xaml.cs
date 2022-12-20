@@ -42,19 +42,26 @@ namespace ProductionPractice.Pages
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             var selectedCourse = LV_Courses.SelectedItem as Course;
-            if (App.LoggedUser.Id != selectedCourse.Id)
+            if (selectedCourse == null)
             {
-                if (App.LoggedUser.RoleId == 2)
-                {
-                    NavigationService.Navigate(new CourseEditPage(selectedCourse));
-                }
-                else 
-                {
-                    MessageBox.Show(" У вас нет доступа к редактированию этого курса");
-                }
-                
+                MessageBox.Show("Выберите курс");
             }
-            else {NavigationService.Navigate(new CourseEditPage(selectedCourse));}
+            else
+            {
+                if (App.LoggedUser.Id != selectedCourse.Id)
+                {
+                    if (App.LoggedUser.RoleId == 2)
+                    {
+                        NavigationService.Navigate(new CourseEditPage(selectedCourse));
+                    }
+                    else
+                    {
+                        MessageBox.Show(" У вас нет доступа к редактированию этого курса");
+                    }
+
+                }
+                else { NavigationService.Navigate(new CourseEditPage(selectedCourse)); }
+            }
         }
 
         private void Beginner_Click(object sender, RoutedEventArgs e)
