@@ -58,7 +58,6 @@ namespace ProductionPractice.Pages
             App.LoggedUser.Fname = FirstName.Text;
             App.LoggedUser.SName = SecondName.Text;
             App.LoggedUser.Email = Email.Text;
-            App.LoggedUser.NickName = NickName.Text;
             App.DB.SaveChanges();
         }
     }

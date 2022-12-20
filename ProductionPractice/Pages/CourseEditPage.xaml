@@ -20,7 +20,7 @@
                     <Border Grid.Column="1" Padding="10" BorderBrush="Black" BorderThickness="1" CornerRadius="10" MaxHeight="400" VerticalAlignment="Top" Margin="0 20 0 0">
                         <StackPanel>
                             <Image Width="auto" Height="200" Source="{Binding Image}"/>
-                            <Button Content="добавить фото" x:Name="CoursePhotoAdd" Click="CoursePhotoAdd_Click" />
+                            <Button Content="Изменить фото" x:Name="CoursePhotoAdd" Click="CoursePhotoAdd_Click" />
                         </StackPanel>
                        
                     </Border>
