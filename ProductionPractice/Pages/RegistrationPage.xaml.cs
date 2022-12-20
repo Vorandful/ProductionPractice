@@ -28,13 +28,18 @@ namespace ProductionPractice.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e) // Кнопка "Зарегистрироваться"
         {
-            if (TB_NickNameAdd.Text.Length <= 0 && Pb_PaswordAdd.Password.Length <= 0)
+            var user = App.DB.User.FirstOrDefault(emp => emp.NickName == TB_NickNameAdd.Text);
+            if (TB_NickNameAdd.Text.Length <= 0 || Pb_PaswordAdd.Password.Length <= 0 || user != null)
             {
-                MessageBox.Show("Заполните поле");
+                MessageBox.Show("Данный пользователь уже зарегистрирован, или не все поля заполнены.");
             }
                 else
                 {
-                    App.DB.User.Add(new User() { NickName = TB_NickNameAdd.Text.Trim(), Password = Pb_PaswordAdd.Password.Trim(), RoleId = 1, Fname = " ", SName = " " });
+                    App.DB.User.Add(new User() { NickName = TB_NickNameAdd.Text.Trim(),
+                        Password = Pb_PaswordAdd.Password.Trim(),
+                        RoleId = 1, 
+                        Fname = " ",
+                        SName = " " });
                     App.DB.SaveChanges();
                     MessageBox.Show("Регистрация прошла успешно");
                     NavigationService.GoBack();
