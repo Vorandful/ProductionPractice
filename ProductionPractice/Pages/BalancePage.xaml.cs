@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -92,6 +93,13 @@ namespace ProductionPractice.Pages
             App.LoggedUser.Balance = double.Parse(balanceProfilePageTB.Text);
             App.DB.SaveChanges();
             NavigationService.GoBack();
+        }
+        private void Digits_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, @"[0-9]") == false)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
