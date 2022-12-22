@@ -122,6 +122,29 @@
                                     </StackPanel>
                                 </Expander>
                             </Border>
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Padding="10" Margin="0 5 0 5">
+                                <Expander
+                            Background="#ffff"
+                             HorizontalAlignment="Stretch">
+                                    <Expander.Header>
+                                        <TextBlock Text="Делитесь своими работами" FontSize="18" HorizontalAlignment="Center"/>
+                                    </Expander.Header>
+                                    <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                        <TextBlock Text="Artstation" HorizontalAlignment="Center" FontSize="20"/>
+                                        <TextBlock HorizontalAlignment="Center" Margin="0 0 0 10">
+                                            <Hyperlink Click="Hyperlink_Click">
+                                                <Image Height="300" Source="/Resources/Screenshot_12.png" />
+                                            </Hyperlink>
+                                        </TextBlock>
+                                        <TextBlock Text="render.ru" HorizontalAlignment="Center" FontSize="20"/>
+                                        <TextBlock HorizontalAlignment="Center">
+                                            <Hyperlink Click="Hyperlink_Click_1">
+                                                <Image Height="300" Source="/Resources/Screenshot_12.png" />
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Expander>
+                            </Border>
                         </StackPanel>
                 </materialDesign:Card>
                 

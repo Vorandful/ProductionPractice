@@ -93,6 +93,7 @@
                                     </Grid>
                                 </Border>
                                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <Button Content="Посмотреть" Margin="0 0 0 10" x:Name="Show" Click="Show_Click"/>
                                     <Button Content="Купить" Margin="0 0 0 0" x:Name="Buy_btn" Click="Buy_Click"/>
                                 </StackPanel>
                             </StackPanel>
@@ -114,7 +115,8 @@
                         </StackPanel>
                         
                     </Border>
-                    <Button x:Name="Edit" Content="Редактировать курс" Height="40" Margin="0 20 0 20" Click="Edit_Click"/>
+                    <Button x:Name="Edit" Content="Редактировать курс" Height="40" Margin="0 20 0 10" Click="Edit_Click"/>
+                    <Button x:Name="List" Content="Список пользователей" Height="40" Margin="0 0 0 10" Click="List_Click" Visibility="Collapsed"/>
                     <TextBlock Text="Баланс" HorizontalAlignment="Center" FontSize="20"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock x:Name="BalanceOnMainPage" FontSize="20"/>

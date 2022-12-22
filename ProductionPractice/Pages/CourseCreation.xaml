@@ -31,6 +31,7 @@
                             <TextBox Text="{Binding Length}" materialDesign:HintAssist.Hint="длина в часах" Margin="0 0 0 10"/>
                             <ComboBox x:Name="CB_Level" DisplayMemberPath="Name" SelectedItem="{Binding KnowledgeLevel}" Margin="0 0 0 10" materialDesign:HintAssist.Hint="Уровень знаний"/>
                             <TextBox Text="{Binding Price}" materialDesign:HintAssist.Hint="Цена курса" Margin="0 0 0 10"/>
+                            <TextBox Text="{Binding Description}" materialDesign:HintAssist.Hint="Описание" Margin="0 0 0 10"/>
                         </StackPanel>
                     </Border>
                 </Grid>

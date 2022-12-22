@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -59,6 +60,16 @@ namespace ProductionPractice.Pages
             App.LoggedUser.SName = SecondName.Text;
             App.LoggedUser.Email = Email.Text;
             App.DB.SaveChanges();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("www.artstation.com");
+        }
+
+        private void Hyperlink_Click_1(object sender, RoutedEventArgs e)
+        {
+            Process.Start("render.ru");
         }
     }
 }

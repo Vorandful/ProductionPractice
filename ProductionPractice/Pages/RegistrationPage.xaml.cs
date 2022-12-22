@@ -39,7 +39,9 @@ namespace ProductionPractice.Pages
                         Password = Pb_PaswordAdd.Password.Trim(),
                         RoleId = 1, 
                         Fname = " ",
-                        SName = " " });
+                        SName = " ", 
+                        Balance = 0,
+                        Email = TB_EmailAdd.Text});
                     App.DB.SaveChanges();
                     MessageBox.Show("Регистрация прошла успешно");
                     NavigationService.GoBack();

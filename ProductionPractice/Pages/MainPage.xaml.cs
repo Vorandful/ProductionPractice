@@ -26,6 +26,10 @@ namespace ProductionPractice.Pages
             InitializeComponent();
             LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Name).ToList();
             BalanceOnMainPage.Text = App.LoggedUser.Balance.ToString();
+            if (App.LoggedUser.RoleId == 2) 
+            {
+                List.Visibility = Visibility.Visible;
+            }
         }
        
 
@@ -95,22 +99,30 @@ namespace ProductionPractice.Pages
             {
                 LV_Courses.ItemsSource = App.DB.Course.ToList();
             }
-            else
+            else if (SortCB != null)
             {
                 LV_Courses.ItemsSource = App.DB.Course.Where(a => a.Name.ToString().Contains(TBSearch.Text.ToLower())).ToList();
+                switch (SortCB.SelectedIndex)
+                {
+                    case 2:
+                        if (string.IsNullOrWhiteSpace(TBSearch.Text))
+                        {
+                            LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Name).ToList();
+                        }
+                        else 
+                        {
+                            LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Name).ToList().Where(x => x.Name.ToString().Contains(TBSearch.Text.ToLower())).ToList();
+                        }  
+                        break;
+                    case 1:
+                        LV_Courses.ItemsSource = App.DB.Course.OrderByDescending(x => x.Price).ToList();
+                        break;
+                    case 0:
+                        LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Price).ToList();
+                        break;
+                }
             }
-            switch (SortCB.SelectedIndex)
-            {
-                case 2:
-                    LV_Courses.ItemsSource = App.DB.Course.OrderBy(x =>x.Name).ToList();
-                    break;
-                case 1:
-                    LV_Courses.ItemsSource = App.DB.Course.OrderByDescending(x => x.Price).ToList();
-                    break;
-                case 0:
-                    LV_Courses.ItemsSource = App.DB.Course.OrderBy(x => x.Price).ToList();
-                    break;
-            }
+            
             BalanceOnMainPage.Text = App.LoggedUser.Balance.ToString();
         }
 
@@ -125,7 +137,7 @@ namespace ProductionPractice.Pages
             var selectedCourse = (sender as Button).DataContext as Course;
             if (App.LoggedUser.Balance < selectedCourse.Price) 
             {
-                MessageBox.Show("Бомж, хаха");
+                MessageBox.Show("Недостаточно средств");
                 return;
             }
        
@@ -144,6 +156,17 @@ namespace ProductionPractice.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new LoginPage());
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourse = (sender as Button).DataContext as Course;
+            NavigationService.Navigate(new CoursePage(selectedCourse));
+        }
+
+        private void List_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UserListPage());
         }
     }
 }

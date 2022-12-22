@@ -25,6 +25,7 @@
           <Property Name="Image" Type="varbinary(max)" />
           <Property Name="KnowledgeLevelId" Type="int" />
           <Property Name="Price" Type="float" />
+          <Property Name="Description" Type="text" />
         </EntityType>
         <EntityType Name="Course_Tag">
           <Key>
@@ -315,6 +316,7 @@
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="KnowledgeLevelId" Type="Int32" />
           <Property Name="Price" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BoughtCourse" Relationship="EgorovProductionPracticeModel.FK_BoughtCourses_Course" FromRole="Course" ToRole="BoughtCourse" />
           <NavigationProperty Name="KnowledgeLevel" Relationship="EgorovProductionPracticeModel.FK_Course_KnowledgeLevel" FromRole="Course" ToRole="KnowledgeLevel" />
           <NavigationProperty Name="Course_Tag" Relationship="EgorovProductionPracticeModel.FK_Course_Tag_Course" FromRole="Course" ToRole="Course_Tag" />
@@ -519,6 +521,7 @@
           <EntitySetMapping Name="Course">
             <EntityTypeMapping TypeName="EgorovProductionPracticeModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="KnowledgeLevelId" ColumnName="KnowledgeLevelId" />
                 <ScalarProperty Name="Image" ColumnName="Image" />

@@ -24,7 +24,7 @@
                 <DropShadowEffect BlurRadius="20" Color="Gray" ShadowDepth="0"/>
             </Border.Effect>
             <StackPanel>
-                <TextBlock Text="Registration" FontWeight="Bold" FontSize="20" Margin="0 0 0 20" HorizontalAlignment="Center"/>
+                <TextBlock Text="Регистрация" FontWeight="Bold" FontSize="20" Margin="0 0 0 20" HorizontalAlignment="Center"/>
 
                 <Grid Margin="0 0 0 20" Width="auto">
                     <Grid.RowDefinitions>
@@ -34,21 +34,21 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="0">
-                        <TextBlock Text="Nickname" HorizontalAlignment="Center" FontSize="18"/>
+                        <TextBlock Text="Ник" HorizontalAlignment="Center" FontSize="18"/>
                         <TextBox Name="TB_NickNameAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
-                        <TextBlock Text="Password" HorizontalAlignment="Center"  FontSize="18"/>
+                        <TextBlock Text="Пароль" HorizontalAlignment="Center"  FontSize="18"/>
                         <PasswordBox Name="Pb_PaswordAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2">
-                        <TextBlock Text="Email" HorizontalAlignment="Center"  FontSize="18"/>
+                        <TextBlock Text="Электронная почта" HorizontalAlignment="Center"  FontSize="18"/>
                         <TextBox Name="TB_EmailAdd" Margin="0 0 0 20" HorizontalContentAlignment="Center" FontSize="18" FontStyle="Italic"/>
                     </StackPanel>
                     <Button VerticalAlignment="Bottom" Content="назад" FontSize="18" Grid.Row="3" HorizontalAlignment="Right" Click="Button_Click_1"/>
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Registration" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0" Click="Button_Click"/>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Регистрация" FontSize="18" Width="150" Height="auto" Grid.Row="3" Margin="0 0 0 0" Click="Button_Click"/>
                 </Grid>
             </StackPanel>
         </Border>

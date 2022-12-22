@@ -30,6 +30,7 @@ namespace ProductionPractice.Components
         public byte[] Image { get; set; }
         public Nullable<int> KnowledgeLevelId { get; set; }
         public Nullable<double> Price { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoughtCourse> BoughtCourse { get; set; }
